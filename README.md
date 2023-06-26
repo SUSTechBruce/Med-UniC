@@ -23,8 +23,8 @@ pip install -r requirement.txt
 * <u>Downstream tasks</u>: Finetune, zeroshot.
 
 ### 1. Build cross-lingual vocab
-Download pretrain medical vision-language data from Google drive: LINK.
-Download checkpoint **CXR-BERT-general: **[huggingface transformers](https://huggingface.co/microsoft/BiomedVLP-CXR-BERT-general/tree/main).
+- Download pretrain medical vision-language data from Google drive: LINK.
+- Download checkpoint **CXR-BERT-general: **[huggingface transformers](https://huggingface.co/microsoft/BiomedVLP-CXR-BERT-general/tree/main).
 Build cross-lingual vocab:
 ```
 cd generate_mix_corpus/
@@ -45,5 +45,10 @@ python mix_json.py
 python tokenize_pretrain_data.py
 ```
 
+### 2. Post-pretrain Cross-lingual Medical LM
+
+```
+python starter_pretrain_cxrbert.py  --
+```
 
 
