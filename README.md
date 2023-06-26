@@ -4,7 +4,7 @@ official implementation of "Med-Unic: unifying cross-lingual medical vision-lang
 Source code for the paper entitled [Med-UniC: Unifying Cross-Lingual Medical Vision-Language Pre-Training by Diminishing Bias](https://arxiv.org/abs/2305.19894)
 > *Zhongwei Wan, Che Liu, Mi Zhang, Jie Fu, Benyou Wang, Sibo Cheng, Lei Ma, César Quilodrán-Casas, Rossella Arcucci*   
 > *The Ohio State University and Imperial College London, etc.*  
-Our experiment is build on the framework from [huggingface transformers](https://github.com/huggingface/transformers).4.4.1
+Our experiment is build on the framework from [huggingface transformers](https://github.com/huggingface/transformers).4.9.0
 
 The main framework of our Med-UniC is shown in the figure below. ![image info](./Figure.png)
 
@@ -23,7 +23,7 @@ pip install -r requirement.txt
 * <u>Downstream tasks</u>: Finetune, zeroshot.
 
 ### 1. Build cross-lingual vocab
-- Download pretrain medical vision-language data from Google drive: LINK.
+- Download pretrain medical vision-language data from Google drive: [LINK 1]. Including preprocessed English MIMIC-CXR and Spanish PadChest.
 - Download checkpoint **CXR-BERT-general: **[huggingface transformers](https://huggingface.co/microsoft/BiomedVLP-CXR-BERT-general/tree/main).
 Build cross-lingual vocab:
 ```
@@ -54,8 +54,47 @@ Arguments:
 - ``pregenerated_data``: pretrained cross-lingual corpus from ``python tokenize_pretrain_data.py``.
 
 ### 4. Pretrain Med-UniC
+```
+python starter_pretrain_mmodal.py --batch_size=128 --cache_dir=/cache --en_img_path=/nas/wanzhongwei_med_data/english_pretrain/only_imp.npy --en_text_csv_path=/nas/wanzhongwei_med_data/english_pretrain/200k_find_imp.csv --freeze_layers=9 --from_scratch=0 --gradient_accumulation_steps=4 --img_data=s3://bucket-884/wanzhongwei_multi_modal/simplified_code/img_data/ --lambda_t=1 --loss_type=unified_loss --lr=4e-5 --max_epochs=100 --max_seq_length=256 --model=/nas/wanzhongwei_med_data/cxrbert/cxrbert_15_8/ --nas_output_dir=/nas/wanzhongwei_med_data/vit_pretrain_model_128/ --nnodes=1 --nproc_per_node=8 --sp_img_path=/nas/wanzhongwei_med_data/sp_pretrain/PDC_train_int.npy --sp_text_csv_path=/nas/wanzhongwei_med_data/sp_pretrain/PDC_cleaned.csv --text_aug=0 --text_data=s3://bucket-884/wanzhongwei_multi_modal/simplified_code/new_data/ --un_pretrain_model=/nas/wanzhongwei_med_data/unpretrain_cxrbert/ --vision_encoder_name=vit --vision_model_path=/nas/wanzhongwei_med_data/well_pretrain_models/resnet50_imagnet/resnet50imageNet.pth --vit_name=base --vit_path=/nas/wanzhongwei_med_data/VIT_backbone/vit_base/pretrain_vit_base.pth --weight_decay=5e-2
+```
+Arguments:
+- ``img_data``: Location to store pretraining medical sp and en image data.
 
+### 5. Downstream tasks
 
+#### a. Finetuning
+Finetuning dataset downloading: 
+- **CheXpert**: CheXpert dataset in the [CheXpert](https://stanfordmlgroup.github.io/competitions/chexpert/) .
 
+- **RSNA**: RSNA dataset in [Kaggle](https://www.kaggle.com/competitions/rsna-pneumonia-detection-challenge/data). 
+
+- **COVIDx**: COVIDx dataset in [Kaggle](https://www.kaggle.com/datasets/andyczhao/covidx-cxr2).
+
+- **SIIM**: SIIM dataset in [Kaggle](https://www.kaggle.com/competitions/siim-acr-pneumothorax-segmentation/data).
+
+- **Object-CXR**: object-CXR dataset in its [official website](https://academictorrents.com/details/fdc91f11d7010f7259a05403fc9d00079a09f5d5).
+
+Set up the downstream tasks, preprocess the datasets, and finetune the model following [MGCA](https://github.com/HKU-MedAI/MGCA)https://github.com/HKU-MedAI/MGCA. 
+Then, use Med-UniC visual encoder checkpoint learned from ``Pretrain Med-UniC `` section to execute downstream tasks as following:
+
+```
+cd finetune/downstream_tasks/mgca/models/mgca/
+CUDA_VISIBLE_DEVICES=1 python med_unic_vit_finetuner.py --gpus 1 --dataset rsna --data_pct 0.01 --batch_size 8 --seed 42
+CUDA_VISIBLE_DEVICES=0 python med_unic_vit_finetuner.py --gpus 1 --dataset rsna --data_pct 0.1 --batch_size 8 --seed 42
+CUDA_VISIBLE_DEVICES=0 python med_unic_vit_finetuner.py --gpus 1 --dataset rsna --data_pct 1 --batch_size 8 --seed 42
+```
+#### b. Zeroshot
+- Download English CheXpert zeroshot dataset from Google drive : [LINK 2]
+- Preprocess Spanish PDC zeroshot dataset as following:
+```
+python preprocess_pdc.py
+```
+- Zeroshot tasks:
+```
+1. CheXpert zeroshot:
+python zero_shot.py
+1. PDC zeroshot:
+python zero_shot_pdc.py
+```
 
 
