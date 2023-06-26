@@ -23,7 +23,8 @@ pip install -r requirement.txt
 * <u>Downstream tasks</u>: Finetune, zeroshot.
 
 ### 1. Build cross-lingual vocab
-- Download pretrain medical vision-language data from Google drive: [LINK 1]. Including preprocessed English MIMIC-CXR and Spanish PadChest.
+- Download MIMIC-CXR and PadChest datasets. For MIMIC-CXR dataset, please follow [MGCA](https://github.com/HKU-MedAI/MGCA/tree/main) to download and obtain the 'master.csv' file. For PadChest, the data can be download from [PadChest](https://bimcv.cipf.es/bimcv-projects/padchest/).
+- To preprocess the images, please run ```python preprocess.py --dataset=MIMIC(PDC)```
 - Download checkpoint **CXR-BERT-general: **[huggingface transformers](https://huggingface.co/microsoft/BiomedVLP-CXR-BERT-general/tree/main).
 Build cross-lingual vocab:
 ```
@@ -85,10 +86,10 @@ CUDA_VISIBLE_DEVICES=0 python med_unic_vit_finetuner.py --gpus 1 --dataset rsna 
 CUDA_VISIBLE_DEVICES=0 python med_unic_vit_finetuner.py --gpus 1 --dataset rsna --data_pct 1 --batch_size 8 --seed 42
 ```
 #### b. Zeroshot
-- Download English CheXpert zeroshot dataset from Google drive : [LINK 2]
-- Preprocess Spanish PDC zeroshot dataset as following:
+- For English Dataset zero-shot classification task, we use the dataset from the test set of [CheXlocalize](https://www.nature.com/articles/s42256-022-00536-x). It includes 500+ CXR images with clinician annotated disease label.
+- For Spanish Dataset, we build the test set only with unique label. Preprocess Spanish PDC zeroshot dataset as following:
 ```
-python preprocess_pdc.py
+python Med-UniC/zero-shot/preprocess_pdc.py
 ```
 - Zeroshot tasks:
 ```
