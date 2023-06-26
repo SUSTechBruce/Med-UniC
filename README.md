@@ -50,5 +50,10 @@ python tokenize_pretrain_data.py
 ```
 python starter_pretrain_cxrbert.py  --cache_dir /cache --epochs 15 --gradient_accumulation_steps 16 --learning_rate 5e-4 load_model 1 --mask_ratio 0.15 --max_seq_length 256 --model /CXR_bert_general --nas_output_dir multiligual_cxrbert_015_15_8/ --nnodes 1 --nproc_per_node 8 --pregenerated_data tokenized_parts_med_data/ --warmup_steps 50
 ```
+Arguments:
+- ``pregenerated_data``: pretrained cross-lingual corpus from ``python tokenize_pretrain_data.py``.
+
+
+
 
 
