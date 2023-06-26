@@ -5,5 +5,5 @@ Source code for the paper entitled [Med-UniC: Unifying Cross-Lingual Medical Vis
 
 Our experiment is build on the framework from [huggingface transformers](https://github.com/huggingface/transformers).4.4.1
 
-The main framework of our Med-UniC is shown in the figure below. ![image info](./framework.png)
+The main framework of our Med-UniC is shown in the figure below. ![image info](./Figure.png)
 
