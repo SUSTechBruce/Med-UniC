@@ -35,7 +35,7 @@ python convert_csv_to_json_sp.py
 2. Generate Spanish Vocab:
 python generate_CXRBert_vocab.py
 
-3. Merge mixed vocab:
+3. Merge mixed vocab and replace vocab.txt of CXRBert:
 python build_sp_vocab.py
 
 4. Mix en and sp jsons for pretraining:
@@ -45,13 +45,15 @@ python mix_json.py
 python tokenize_pretrain_data.py
 ```
 
-### 2. Post-pretrain Cross-lingual Medical LM
+### 2. Post-pretraining for Cross-lingual Medical LM
 
 ```
 python starter_pretrain_cxrbert.py  --cache_dir /cache --epochs 15 --gradient_accumulation_steps 16 --learning_rate 5e-4 load_model 1 --mask_ratio 0.15 --max_seq_length 256 --model /CXR_bert_general --nas_output_dir multiligual_cxrbert_015_15_8/ --nnodes 1 --nproc_per_node 8 --pregenerated_data tokenized_parts_med_data/ --warmup_steps 50
 ```
 Arguments:
 - ``pregenerated_data``: pretrained cross-lingual corpus from ``python tokenize_pretrain_data.py``.
+
+### 4. Pretrain Med-UniC
 
 
 
