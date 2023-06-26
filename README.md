@@ -54,6 +54,7 @@ Arguments:
 - ``pregenerated_data``: pretrained cross-lingual corpus from ``python tokenize_pretrain_data.py``.
 
 ### 4. Pretrain Med-UniC
+Then, adopt well-pretrained Cross-lingual Medical LM, run:
 ```
 python starter_pretrain_mmodal.py --batch_size=128 --cache_dir=/cache --en_img_path=/nas/wanzhongwei_med_data/english_pretrain/only_imp.npy --en_text_csv_path=/nas/wanzhongwei_med_data/english_pretrain/200k_find_imp.csv --freeze_layers=9 --from_scratch=0 --gradient_accumulation_steps=4 --img_data=s3://bucket-884/wanzhongwei_multi_modal/simplified_code/img_data/ --lambda_t=1 --loss_type=unified_loss --lr=4e-5 --max_epochs=100 --max_seq_length=256 --model=/nas/wanzhongwei_med_data/cxrbert/cxrbert_15_8/ --nas_output_dir=/nas/wanzhongwei_med_data/vit_pretrain_model_128/ --nnodes=1 --nproc_per_node=8 --sp_img_path=/nas/wanzhongwei_med_data/sp_pretrain/PDC_train_int.npy --sp_text_csv_path=/nas/wanzhongwei_med_data/sp_pretrain/PDC_cleaned.csv --text_aug=0 --text_data=s3://bucket-884/wanzhongwei_multi_modal/simplified_code/new_data/ --un_pretrain_model=/nas/wanzhongwei_med_data/unpretrain_cxrbert/ --vision_encoder_name=vit --vision_model_path=/nas/wanzhongwei_med_data/well_pretrain_models/resnet50_imagnet/resnet50imageNet.pth --vit_name=base --vit_path=/nas/wanzhongwei_med_data/VIT_backbone/vit_base/pretrain_vit_base.pth --weight_decay=5e-2
 ```
