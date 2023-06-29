@@ -98,5 +98,14 @@ python zero_shot.py
 1. PDC zeroshot:
 python zero_shot_pdc.py
 ```
-
+## Citation
+```
+@article{Wan2023MedUniCUC,
+  title={Med-UniC: Unifying Cross-Lingual Medical Vision-Language Pre-Training by Diminishing Bias},
+  author={Zhongwei Wan and Che Liu and Mi Zhang and Jie Fu and Benyou Wang and Sibo Cheng and Lei Ma and C'esar Quilodr'an-Casas and Rossella Arcucci},
+  journal={ArXiv},
+  year={2023},
+  volume={abs/2305.19894}
+}
+```
 
