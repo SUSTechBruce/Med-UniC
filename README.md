@@ -54,6 +54,16 @@ python starter_pretrain_cxrbert.py  --cache_dir /cache --epochs 15 --gradient_ac
 Arguments:
 - ``pregenerated_data``: pretrained cross-lingual corpus from ``python tokenize_pretrain_data.py``.
 
+Post-pretraining results:
+| Hyper-params | Loss | 
+| ----- | ----- |
+| 5 epochs 8 cards 1024 bz    | 0.6938 | 
+| 5 epochs 16 cards 2048 bz   | 0.6715 | 
+| 10 epochs 8 cards 1024 bz   | 0.5543 |
+| 10 epochs 16 cards 2048 bz  | 0.5613 | 
+| 15 epochs 8 cards 1024 bz   | 0.5296 | 
+| 15 epochs 16 cards 2048 bz  | 0.5459 |
+
 ### 4. Pretrain Med-UniC
 Then, adopt well-pretrained Cross-lingual Medical LM, run:
 ```
