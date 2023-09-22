@@ -1,5 +1,5 @@
 # Med-UniC
-Official implementation of "Med-Unic: unifying cross-lingual medical vision-language pre-training by diminishing bias"
+Official implementation of "Med-Unic: unifying cross-lingual medical vision-language pre-training by diminishing bias" NeurIPS 2023
 
 Source code for the paper entitled [Med-UniC: Unifying Cross-Lingual Medical Vision-Language Pre-Training by Diminishing Bias](https://arxiv.org/abs/2305.19894)
 > *Zhongwei Wan, Che Liu, Mi Zhang, Jie Fu, Benyou Wang, Sibo Cheng, Lei Ma, César Quilodrán-Casas, Rossella Arcucci*   
